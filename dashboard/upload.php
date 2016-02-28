@@ -18,7 +18,7 @@
                 case UPLOAD_ERR_OK:
                     $valid = true;
                     //validate file extensions
-                    if ( !in_array($ext, array('jpg','jpeg','png','gif')) ) {
+                    if ( !in_array($ext, array('jpg','jpeg','png','gif','xls')) ) {
                         $valid = false;
                         $response = 'Invalid file extension.';
                     }
