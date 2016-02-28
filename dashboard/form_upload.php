@@ -11,18 +11,7 @@ ini_set('display_errors', 'On');  //On or Off
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Form Upload </h3>
-                        </div>
-
-                        <div class="title_right">
-                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search for...">
-                                    <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                                </div>
-                            </div>
+                            <h3> Upload Module </h3>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -31,7 +20,7 @@ ini_set('display_errors', 'On');  //On or Off
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Dropzone multiple file uploader</h2>
+                                    <h2>File List</h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
@@ -50,14 +39,40 @@ ini_set('display_errors', 'On');  //On or Off
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
+                                  <div class="row">
+                                     <?php
+                                      //scan "uploads" folder and display them accordingly
+                                     $folder = "uploads";
+                                     $results = scandir('uploads');
+                                     foreach ($results as $result) {
+                                      if ($result === '.' or $result === '..') continue;
 
-                                    <p>Drag multiple files to the box below for multi upload or click to select files. This is for demonstration purposes only, the files are not uploaded to any server.</p>
-                                    <form action="choices/form_upload.html" class="dropzone" style="border: 1px solid #e5e5e5; height: 300px; "></form>
-
-                                    <br />
-                                    <br />
-                                    <br />
-                                    <br />
+                                      if (is_file($folder . '/' . $result)) {
+                                          echo '
+                                          <div class="col-md-4">
+                                              <div class="file-caption-name" title="'.$result .'">
+                                              <span class="glyphicon glyphicon-file kv-caption-icon"></span>
+                                              '.$result .'
+                                              <a href="remove.php?name='.$result.'" ><span style="color: red; cursor: default;" class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                              </div>
+                                          </div>';
+                                      }
+                                     }
+                                     ?>
+                                  </div>
+                                </br>
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                       <form class="well" action="upload.php" method="post" enctype="multipart/form-data">
+                                          <div class="form-group">
+                                            <label for="file">Select a file to upload</label>
+                                            <input type="file" name="file">
+                                            <p class="help-block"></p>
+                                          </div>
+                                          <input type="submit" class="btn btn-small btn-primary" value="Upload">
+                                        </form>
+                                    </div>
+                                  </div>
                                 </div>
                             </div>
                         </div>
@@ -90,8 +105,6 @@ ini_set('display_errors', 'On');  //On or Off
 
     <script src="js/bootstrap.min.js"></script>
 
-    <!-- chart js -->
-    <script src="js/chartjs/chart.min.js"></script>
     <!-- bootstrap progress js -->
     <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
     <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
@@ -99,8 +112,6 @@ ini_set('display_errors', 'On');  //On or Off
     <script src="js/icheck/icheck.min.js"></script>
 
     <script src="js/custom.js"></script>
-    <!-- dropzone -->
-    <script src="js/dropzone/dropzone.js"></script>
 
 </body>
 </html>
